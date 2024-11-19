@@ -1,6 +1,21 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
+const LoginPage = require('./LoginPage');
+const { log } = require('console');
 
+test('should login successfully', 
+  async ({page}) => {
+    const loginPage = new LoginPage(page);
+
+    await loginPage.navigateTo('https://www.saucedemo.com/');
+
+    await loginPage.login('standard_user', 'secret_sauce');
+
+    await expect(page.locator('text=Products')).toBeVisible();
+  }
+)
+
+/*
 test.beforeEach(async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
 })
@@ -16,4 +31,4 @@ test.describe('User login flow', () => {
     await expect(page.getByText('Products')).toBeVisible();
 
   })
-})
+}) */
