@@ -6,11 +6,8 @@ This repository contains automated tests for the Saucedemo web application using
 - [Introduction](#introduction)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
-- [Project Structure](#project-structure)
 - [Usage](#usage)
-- [Writing Tests](#writing-tests)
-- [Contributing](#contributing)
-- [License](#license)
+- [Project Structure](#project-structure)
 
 ## Introduction
 This project automates the testing of the Saucedemo web application using [Playwright](https://playwright.dev/) for end-to-end testing. The Page Object Model design pattern is used to enhance test maintenance and reduce code duplication.
@@ -59,18 +56,7 @@ Ensure you have the following installed on your machine:
 ├── pages
 │   ├── basePage.js         # Base page object
 │   ├── loginPage.js        # Page object for the login page
-│   ├── inventoryPage.js    # Page object for the inventory page
 │   └── ...
 ├── playwright.config.js    # Playwright configuration file
 ├── package.json            # Project metadata and dependencies
 └── README.md               # This file
-
-
-
-
-
-
-
-
-
-
