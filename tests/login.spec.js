@@ -1,13 +1,12 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
-const LoginPage = require('./LoginPage');
-const { log } = require('console');
+const LoginPage = require('../pages/LoginPage');
 
 test('should login successfully', 
   async ({page}) => {
     const loginPage = new LoginPage(page);
 
-    await loginPage.navigateTo('https://www.saucedemo.com/');
+    await loginPage.navigateTo('/');
 
     await loginPage.login('standard_user', 'secret_sauce');
 
@@ -15,20 +14,39 @@ test('should login successfully',
   }
 )
 
-/*
-test.beforeEach(async ({ page }) => {
-  await page.goto('https://www.saucedemo.com/');
-})
+test('should show error for invalid login credentials',
+  async ({page}) => {
+    const loginPage = new LoginPage(page);
 
-test.describe('User login flow', () => {
-  test('Valid user credentials redirect to dashboard', async ({page}) => {
-    await page.fill('input[name="user-name"]', 'standard_user');
-    await page.fill('input[name="password"]', 'secret_sauce');
-    await page.getByText('Login').click();
+    await loginPage.navigateTo('/');
 
-    // Asserting redirection and welcome message
-    await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
-    await expect(page.getByText('Products')).toBeVisible();
+    await loginPage.login('wrong_username', 'wrong_password');
 
-  })
-}) */
+    await expect(loginPage.getErrorMessage()).resolves.toContain('Username and password do not match any user in this service');
+  }
+)
+
+
+test('should show error for empty username field',
+  async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    await loginPage.navigateTo('/');
+
+    await loginPage.login('', 'secret_sauce');
+
+    await expect(loginPage.getErrorMessage()).resolves.toContain('Username is required');
+  }
+)
+
+test('should show error for empty pasword field',
+  async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    await loginPage.navigateTo('/');
+
+    await loginPage.login('standard_user', '');
+
+    await expect(loginPage.getErrorMessage()).resolves.toContain('Password is required');
+  }
+)

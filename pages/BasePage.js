@@ -9,9 +9,14 @@ class BasePage {
         await this.page.goto(url);
     }
 
-    // Method to wait for an element to be visible or present in the DOM
-    async waitForElement(locator) {
-        await this.page.locator(locator).waitFor();
+    // Method to wait for an element to be visible or present in the DOM using data-test attribute
+    async waitForElement(dataTestValue) {
+        await this.page.locator(`[data-test='${dataTestValue}']`).waitFor();
+    }
+
+    // Method to locate element using data test attribute
+    getElementByDataTest(dataTestValue){
+        return this.page.locator(`[data-test='${dataTestValue}']`);
     }
 
     // Method to retrieve current page title
