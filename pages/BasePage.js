@@ -19,6 +19,21 @@ class BasePage {
         return this.page.locator(`[data-test='${dataTestValue}']`);
     }
 
+    // Method to locate element using data test attribute and name (dynamic locator)
+    getElementByDataTestAndName(dataTestValue, name){
+        return this.page.locator(`[data-test="${dataTestValue}"]:text("${name}")`);
+    }
+
+    // Wit for element using it's data test value
+    async waitForElementByDataTest(dataTestValue) {
+        await this.page.locator(`[data-test='${dataTestValue}']`).waitFor();
+    }
+
+    // Wait for element using both data-test and name
+    async waitForElementByDataTestAndName(dataTestValue, name) {
+        await this.page.locator(`[data-test='${dataTestValue}'][name='${name}']`).waitFor();
+    }
+
     // Method to retrieve current page title
     async getTitle() {
         return await this.page.title();

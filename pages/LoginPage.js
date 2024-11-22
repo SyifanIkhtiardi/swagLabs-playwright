@@ -16,8 +16,8 @@ class LoginPage extends BasePage {
         await this.passwordField.fill(password);
 
         await this.loginButton.click();
-
     }
+
 
     // Get the error message
     async getErrorMessage() {
